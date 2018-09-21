@@ -9,7 +9,7 @@ object TestSpark {
 
   def main(args: Array[String]): Unit = {
 
-    HadoopUtils.INSTANCE.loadConfigFile(null)
+    val instance = HadoopUtils.INSTANCE
 
     val ss = SparkSession.builder().master("local").appName("toto").getOrCreate()
 
@@ -18,6 +18,10 @@ object TestSpark {
     val ds = ss.createDataset(0 to 10)
 
     ds.collect().foreach(println)
+
+
+    ss.stop()
+    System.exit(0)
 
   }
 
